@@ -1,0 +1,134 @@
+<nav aria-label="Navegação principal">
+    <div class="nav-container">
+      <a href="#sobre" class="active" aria-current="page">Sobre</a>
+      <a href="#projetos-concluidos">Projetos</a>
+      <a href="#projetos-andamento">Em Andamento</a>
+      <a href="#jogo">Jogo</a>
+      <a href="https://github.com/joaopedro" target="_blank" rel="noopener noreferrer" aria-label="GitHub de João Pedro">
+        GitHub
+        <svg class="github-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.09-.745.083-.73.083-.73 1.205.086 1.838 1.236 1.838 1.236 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.76-1.606-2.665-.304-5.467-1.334-5.467-5.933 0-1.31.467-2.38 1.235-3.22-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.3 1.23a11.52 11.52 0 013.003-.404 11.49 11.49 0 013.003.404c2.29-1.552 3.296-1.23 3.296-1.23.653 1.653.243 2.873.12 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.625-5.48 5.922.43.37.823 1.1.823 2.22v3.293c0 .32.217.694.825.576C20.565 21.796 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <div class="spacer"></div>
+
+  <div class="container" role="main">
+    <header>
+      <h1>Andriel araujo</h1>
+      <p>Desenvolvedor Web | Inovador Digital | Criador de Experiências</p>
+    </header>
+
+    <section id="sobre" tabindex="0" aria-labelledby="titulo-sobre">
+      <h2 id="titulo-sobre">Sobre Mim</h2>
+      <p>Meu nome é Andriel, tenho 17 anos e sou um entusiasta do desenvolvimento web com foco em entregar soluções digitais elegantes e funcionais. Minha jornada começou com a curiosidade de criar sites e se transformou em uma paixão por tecnologia, inovação e design de experiência do usuário.</p>
+      <p>Trabalho constantemente para aprimorar minhas habilidades em HTML, CSS, JavaScript e frameworks modernos, sempre alinhando qualidade técnica com criatividade e usabilidade.</p>
+    </section>
+
+    <section id="projetos-concluidos" tabindex="0" aria-labelledby="titulo-projetos-concluidos">
+      <h2 id="titulo-projetos-concluidos">Projetos Concluídos</h2>
+      <ul>
+        <li>Desenvolvimento de portfólio responsivo e otimizado para dispositivos móveis, com foco em acessibilidade e SEO.</li>
+        <li>Criação de blog tecnológico com sistema de comentários e integração de analytics para insights de uso.</li>
+        <li>Landing pages para campanhas de marketing digital, com design limpo e formulários funcionais integrados a plataformas de CRM.</li>
+      </ul>
+    </section>
+
+    <section id="projetos-andamento" tabindex="0" aria-labelledby="titulo-projetos-andamento">
+      <h2 id="titulo-projetos-andamento">Projetos em Andamento</h2>
+      <ul>
+        <li class="em-andamento">Desenvolvimento de um aplicativo web chamado guardioes do cerrado.</li>
+        <li class="em-andamento">Estudo e implementação de animações avançadas usando CSS e JavaScript para melhorar a experiência do usuário.</li>
+        <li class="em-andamento">Aprendizado aprofundado de artes visuais,dança entre outras ops.</li>
+      </ul>
+    </section>
+
+    <section id="jogo" tabindex="0" aria-labelledby="titulo-jogo">
+      <h2 id="titulo-jogo">Mini Jogo de Agilidade</h2>
+      <div id="game">
+        <div id="game-area" aria-label="Área do jogo. Clique no quadrado azul para marcar pontos.">
+          <div id="target" tabindex="0" role="button" aria-pressed="false"></div>
+        </div>
+        <button id="start-btn" aria-live="polite" aria-atomic="true">Iniciar Jogo</button>
+        <div id="scoreboard" aria-live="polite" aria-atomic="true" aria-label="Pontuação do jogo">Pontos: 0</div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    &copy; 2025 andriel araujo. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    // Jogo simples: clique no quadrado azul que aparece aleatoriamente na área
+
+    const startBtn = document.getElementById('start-btn');
+    const gameArea = document.getElementById('game-area');
+    const target = document.getElementById('target');
+    const scoreboard = document.getElementById('scoreboard');
+
+    let score = 0;
+    let gameInterval;
+    let gameActive = false;
+
+    function moveTarget() {
+      const maxX = gameArea.clientWidth - target.clientWidth;
+      const maxY = gameArea.clientHeight - target.clientHeight;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      target.style.left = randomX + 'px';
+      target.style.top = randomY + 'px';
+    }
+
+    function startGame() {
+      if (gameActive) return;
+
+      score = 0;
+      scoreboard.textContent = 'Pontos: 0';
+      gameActive = true;
+      startBtn.disabled = true;
+      target.setAttribute('aria-pressed', 'false');
+
+      moveTarget();
+
+      gameInterval = setInterval(() => {
+        moveTarget();
+        target.setAttribute('aria-pressed', 'false');
+      }, 1200);
+
+      setTimeout(() => {
+        clearInterval(gameInterval);
+        gameActive = false;
+        startBtn.disabled = false;
+        alert(`Fim de jogo! Sua pontuação final foi: ${score}`);
+      }, 20000);
+    }
+
+    target.addEventListener('click', () => {
+      if (!gameActive) return;
+      score++;
+      scoreboard.textContent = `Pontos: ${score}`;
+      target.setAttribute('aria-pressed', 'true');
+      moveTarget();
+    });
+
+    // Permite jogar também com teclado (Enter ou Espaço)
+    target.addEventListener('keydown', (e) => {
+      if (!gameActive) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        score++;
+        scoreboard.textContent = `Pontos: ${score}`;
+        target.setAttribute('aria-pressed', 'true');
+        moveTarget();
+      }
+    });
+
+    startBtn.addEventListener('click', startGame);
+
+  </script>
